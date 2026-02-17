@@ -287,8 +287,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "✓ No changes to commit (already up to date)"
           else
-            git pull --rebase origin main
+            # Commit first
             git commit -m "chore: update ${{ env.APP_NAME }} ${{ env.ENV }} image to ${{ needs.build-image.outputs.image_tag }} [skip ci]"
+            
+            # Pull and push with retry
+            git pull --rebase origin main || echo "Pull conflict, resolving..."
             git push origin main || (git pull --rebase origin main && git push origin main)
             echo "✓ Manifest changes committed and pushed"
           fi
