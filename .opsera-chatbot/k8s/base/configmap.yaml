@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chatbot-config
+  namespace: opsera-chatbot-dev
+  labels:
+    app: chatbot
+    tenant: opsera
+data:
+  # Application configuration
+  ENVIRONMENT: "dev"
+  LOG_LEVEL: "info"
+  PORT: "8080"

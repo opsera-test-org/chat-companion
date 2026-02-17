@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chatbot
+  namespace: opsera-chatbot-dev
+  labels:
+    app: chatbot
+    tenant: opsera
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: chatbot-dev.agent.opsera.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: chatbot
+            port:
+              number: 80
